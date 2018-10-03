@@ -1,12 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using CsvHelper;
 
 namespace yaml2csv
 {
     class Program
     {
-        static void WriteCsvHeaders(CsvSerializer csv, Dictionary<string, Object> data)
+        static string ConvertToEscapedCsv(object value)
+        {
+            StringBuilder result = new StringBuilder();
+
+            result.Append(value.ToString());
+            result.Replace("\"", "\"\"");
+            result.Replace("\n", "\\n");
+
+            result.Insert(0, "\"");
+            result.Append("\"");
+            return result.ToString();
+        }
+
+        static void WriteCsvHeaders(CsvSerializer csv, Dictionary<string, object> data)
         {
             string[] keys = new string[data.Keys.Count];
             data.Keys.CopyTo(keys, 0);
@@ -15,7 +29,7 @@ namespace yaml2csv
             csv.WriteLine();
         }
 
-        static void WriteCsvValues(CsvSerializer csv, Dictionary<string, Object> data)
+        static void WriteCsvValues(CsvSerializer csv, Dictionary<string, object> data)
         {
             object[] valueObjs = new object[data.Values.Count];
             data.Values.CopyTo(valueObjs, 0);
@@ -23,11 +37,7 @@ namespace yaml2csv
             string[] values = new string[valueObjs.Length];
             for (int i = 0; i < valueObjs.Length; i++)
             {
-                values[i] = "\"" +
-                    valueObjs[i].ToString()
-                        .Replace("\"", "\"\"")
-                        .Replace("\n", "\\n") +
-                    "\"";
+                values[i] = ConvertToEscapedCsv(valueObjs[i]);
             }
 
             csv.Write(values);
@@ -44,7 +54,7 @@ namespace yaml2csv
 
             foreach (string yamlDoc in input.SplitYaml())
             {
-                var data = yamlDeserializer.Deserialize<Dictionary<string, Object>>(yamlDoc);
+                var data = yamlDeserializer.Deserialize<Dictionary<string, object>>(yamlDoc);
 
                 if (firstRow)
                 {
