@@ -14,12 +14,16 @@ The goal of this tool is to enable that workflow, such that you could run `cat *
 
 For now the way to install this tool is to clone the git repo, build it in Visual Studio, and copy the binary somewhere in your `$PATH`.
 
+The default build for .NET Core apps is a DLL, not an exe file. To run it, use `dotnet yaml2csv.dll`, or change the project config to build a stand-alone exe.
+
 ## Links
 
 * [ConvertYamlToJson Example](https://github.com/aaubry/YamlDotNet/wiki/Samples.ConvertYamlToJson)
 
 ## TODO
 
+* Commas are not being escaped correctly in the output
+* Ability to filter columns by name as a command-line flag
 * Warn if row contains a column count mis-match
 * Handle list fields
     * They should be converted as a comma-delimited string value
@@ -27,3 +31,5 @@ For now the way to install this tool is to clone the git repo, build it in Visua
     * Particularly problem strings
 * Read input a line at a time, instead of all at once
     * May be able to rely on delimiters being alone on a line
+* Command line flag -f to read input from file instead of stdin
+    * Also support globbing
