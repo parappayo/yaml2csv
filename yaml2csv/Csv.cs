@@ -37,14 +37,41 @@ namespace yaml2csv
             }
         }
 
+        private static void Append(StringBuilder destination, Dictionary<object, object> source)
+        {
+            bool isFirstItem = true;
+
+            foreach (var key in source.Keys)
+            {
+                var item = source[key];
+
+                if (!isFirstItem)
+                {
+                    destination.Append(",");
+                }
+                else
+                {
+                    isFirstItem = false;
+                }
+
+                destination.Append(key.ToString() + ":" + item.ToString());
+            }
+        }
+
         public static string ToEscapedString(object value)
         {
             StringBuilder result = new StringBuilder();
 
             var valueAsList = value as List<object>;
+            var valueAsDictionary = value as Dictionary<object, object>;
+
             if (valueAsList != null)
             {
                 Append(result, valueAsList);
+            }
+            else if (valueAsDictionary != null)
+            {
+                Append(result, valueAsDictionary);
             }
             else
             {
