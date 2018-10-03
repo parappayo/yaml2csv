@@ -22,13 +22,11 @@ The default build for .NET Core apps is a DLL, not an exe file. To run it, use `
 
 ## TODO
 
-* Handle list fields
-    * They should be converted as a comma-delimited string value
-* Create a test suite to document edge cases
-    * Particularly problem strings
-* Warn if row contains a column count mis-match
 * Read input a line at a time, instead of all at once
     * May be able to rely on delimiters being alone on a line
+* Expand unit tests
+    * Add [problem strings](https://github.com/minimaxir/big-list-of-naughty-strings/blob/master/blns.txt) edge cases
+* Warn if row contains a column count mis-match
 * Command-line flag to filter columns by name
 * Command line flag -f to read input from file instead of stdin
     * Also support globbing

@@ -6,16 +6,53 @@ namespace yaml2csv
 {
     class Csv
     {
+        private static void Enquote(StringBuilder value)
+        {
+            value.Insert(0, "\"");
+            value.Append("\"");
+        }
+
+        private static void EscapeCsvChars(StringBuilder value)
+        {
+            value.Replace("\"", "\"\"");
+            value.Replace("\n", "\\n");
+        }
+
+        private static void Append(StringBuilder destination, List<object> source)
+        {
+            bool isFirstItem = true;
+
+            foreach (var item in source)
+            {
+                if (!isFirstItem)
+                {
+                    destination.Append(",");
+                }
+                else
+                {
+                    isFirstItem = false;
+                }
+
+                destination.Append(item.ToString());
+            }
+        }
+
         public static string ToEscapedString(object value)
         {
             StringBuilder result = new StringBuilder();
 
-            result.Append(value.ToString());
-            result.Replace("\"", "\"\"");
-            result.Replace("\n", "\\n");
+            var valueAsList = value as List<object>;
+            if (valueAsList != null)
+            {
+                Append(result, valueAsList);
+            }
+            else
+            {
+                result.Append(value.ToString());
+            }
 
-            result.Insert(0, "\"");
-            result.Append("\"");
+            EscapeCsvChars(result);
+            Enquote(result);
             return result.ToString();
         }
 
@@ -42,6 +79,5 @@ namespace yaml2csv
             csv.Write(values);
             csv.WriteLine();
         }
-
     }
 }
