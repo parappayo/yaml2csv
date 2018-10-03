@@ -6,24 +6,6 @@ namespace yaml2csv
 {
     class Program
     {
-        public static string TestYamlDoc =
-            "---\n" +
-            "id: 123\n" +
-            "name: \"Test Data Set\"\n" +
-            "myList:\n" +
-            "  - one\n" +
-            "  - two\n" +
-            "  - three\n" +
-            "...\n" +
-            "---\n" +
-            "id: 456\n" +
-            "name: \"Another Row\"\n" +
-            "myList:\n" +
-            "  - one\n" +
-            "  - two\n" +
-            "  - three\n" +
-            "...";
-
         static void WriteCsvHeaders(CsvSerializer csv, Dictionary<string, Object> data)
         {
             string[] keys = new string[data.Keys.Count];
@@ -53,9 +35,10 @@ namespace yaml2csv
             var yamlDeserializer = new YamlDotNet.Serialization.Deserializer();
             var csv = new CsvSerializer(Console.Out);
 
+            string input = Console.In.ReadToEnd();
             bool firstRow = true;
 
-            foreach (string yamlDoc in TestYamlDoc.SplitYaml())
+            foreach (string yamlDoc in input.SplitYaml())
             {
                 var data = yamlDeserializer.Deserialize<Dictionary<string, Object>>(yamlDoc);
 

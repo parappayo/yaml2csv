@@ -26,6 +26,5 @@ namespace yaml2csv
                 }
             }
         }
-
     }
 }

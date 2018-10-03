@@ -20,11 +20,10 @@ For now the way to install this tool is to clone the git repo, build it in Visua
 
 ## TODO
 
-* Handle multiple yaml docs in the input stream
-    * Headers are taken from the first doc found
-    * Each doc is output as a row
-    * Warn if row contains a column count mis-match
+* Warn if row contains a column count mis-match
 * Handle list fields
     * They should be converted as a comma-delimited string value
 * Create a test suite to document edge cases
     * Particularly problem strings
+* Read input a line at a time, instead of all at once
+    * May be able to rely on delimiters being alone on a line
