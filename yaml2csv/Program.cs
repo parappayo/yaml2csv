@@ -23,7 +23,11 @@ namespace yaml2csv
             string[] values = new string[valueObjs.Length];
             for (int i = 0; i < valueObjs.Length; i++)
             {
-                values[i] = valueObjs[i].ToString();
+                values[i] = "\"" +
+                    valueObjs[i].ToString()
+                        .Replace("\"", "\"\"")
+                        .Replace("\n", "\\n") +
+                    "\"";
             }
 
             csv.Write(values);

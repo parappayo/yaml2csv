@@ -22,14 +22,13 @@ The default build for .NET Core apps is a DLL, not an exe file. To run it, use `
 
 ## TODO
 
-* Commas are not being escaped correctly in the output
-* Ability to filter columns by name as a command-line flag
-* Warn if row contains a column count mis-match
 * Handle list fields
     * They should be converted as a comma-delimited string value
 * Create a test suite to document edge cases
     * Particularly problem strings
+* Warn if row contains a column count mis-match
 * Read input a line at a time, instead of all at once
     * May be able to rely on delimiters being alone on a line
+* Command-line flag to filter columns by name
 * Command line flag -f to read input from file instead of stdin
     * Also support globbing
