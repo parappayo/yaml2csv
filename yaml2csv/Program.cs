@@ -50,17 +50,23 @@ namespace yaml2csv
 
         static void Main(string[] args)
         {
+            var yamlDeserializer = new YamlDotNet.Serialization.Deserializer();
+            var csv = new CsvSerializer(Console.Out);
+
+            bool firstRow = true;
+
             foreach (string yamlDoc in TestYamlDoc.SplitYaml())
             {
-                Console.Write(yamlDoc);
+                var data = yamlDeserializer.Deserialize<Dictionary<string, Object>>(yamlDoc);
+
+                if (firstRow)
+                {
+                    WriteCsvHeaders(csv, data);
+                    firstRow = false;
+                }
+
+                WriteCsvValues(csv, data);
             }
-
-            var yamlDeserializer = new YamlDotNet.Serialization.Deserializer();
-            var data = yamlDeserializer.Deserialize<Dictionary<string, Object>>(TestYamlDoc);
-
-            var csv = new CsvSerializer(Console.Out);
-            WriteCsvHeaders(csv, data);
-            WriteCsvValues(csv, data);
         }
     }
 }
