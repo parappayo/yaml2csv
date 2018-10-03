@@ -2,7 +2,7 @@
 
 Converts an input stream of YAML into an output stream of CSV. Each YAML document becomes a row of CSV.
 
-Built for [.NET Core](https://dotnet.github.io/) using [YamlDotNet](https://github.com/aaubry/YamlDotNet) and [CsvHelper](https://joshclose.github.io/CsvHelper/).
+Built for [.NET Core](https://dotnet.github.io/) using [YamlDotNet](https://github.com/aaubry/YamlDotNet), [CsvHelper](https://joshclose.github.io/CsvHelper/), and [xUnit.net](https://xunit.github.io/).
 
 ## Problem Description
 
